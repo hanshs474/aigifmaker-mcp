@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "aigifmaker": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "aigifmaker-mcp"],
+      "env": { "AIGIFMAKER_API_KEY": "${AIGIFMAKER_API_KEY}" }
+    }
+  }
+}

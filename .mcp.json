@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "aigifmaker": {
+      "command": "npx",
+      "args": ["-y", "aigifmaker-mcp"],
+      "env": { "AIGIFMAKER_API_KEY": "${AIGIFMAKER_API_KEY}" }
+    }
+  }
+}

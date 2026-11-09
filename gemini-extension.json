@@ -1,0 +1,13 @@
+{
+  "name": "aigifmaker",
+  "version": "0.1.0",
+  "description": "MCP server for AI GIF Maker (aigifmaker.ai): turn text into animated GIFs from Gemini CLI, on your own API key.",
+  "mcpServers": {
+    "aigifmaker": {
+      "command": "npx",
+      "args": ["-y", "aigifmaker-mcp"],
+      "env": { "AIGIFMAKER_API_KEY": "$AIGIFMAKER_API_KEY" }
+    }
+  },
+  "contextFileName": "GEMINI.md"
+}

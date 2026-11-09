@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "name": "io.github.hanshs474/aigifmaker-mcp",
+  "description": "MCP server for AI GIF Maker (aigifmaker.ai): turn text into animated GIFs from any MCP client.",
+  "repository": {
+    "url": "https://github.com/hanshs474/aigifmaker-mcp",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "websiteUrl": "https://aigifmaker.ai/?utm_source=mcp&utm_medium=package",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "aigifmaker-mcp",
+      "version": "0.1.0",
+      "transport": { "type": "stdio" },
+      "environmentVariables": [
+        { "name": "AIGIFMAKER_API_KEY", "description": "API key from https://aigifmaker.ai/settings/apikeys", "isRequired": true, "isSecret": true }
+      ]
+    }
+  ]
+}
