@@ -1,6 +1,6 @@
 # AI GIF Maker
 
-This extension adds two tools: `generate_gif` (text prompt in, animated GIF URL out) and `check_credits`.
+This extension adds three tools: `generate_gif` (text prompt in, animated GIF URL out), `check_gif` (collects a GIF that was still queued) and `check_credits`.
 
 - It needs `AIGIFMAKER_API_KEY` in the environment (create one at https://aigifmaker.ai/settings/apikeys). If a tool says no key is set, tell the user that, with the link.
 - Each GIF costs 1 credit on the user's AI GIF Maker account. Confirm before making several GIFs in a row.

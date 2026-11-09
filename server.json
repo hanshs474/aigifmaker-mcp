@@ -6,16 +6,23 @@
     "url": "https://github.com/hanshs474/aigifmaker-mcp",
     "source": "github"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
   "websiteUrl": "https://aigifmaker.ai/?utm_source=mcp&utm_medium=package",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "aigifmaker-mcp",
-      "version": "0.1.0",
-      "transport": { "type": "stdio" },
+      "version": "0.1.1",
+      "transport": {
+        "type": "stdio"
+      },
       "environmentVariables": [
-        { "name": "AIGIFMAKER_API_KEY", "description": "API key from https://aigifmaker.ai/settings/apikeys", "isRequired": true, "isSecret": true }
+        {
+          "name": "AIGIFMAKER_API_KEY",
+          "description": "API key from https://aigifmaker.ai/settings/apikeys",
+          "isRequired": true,
+          "isSecret": true
+        }
       ]
     }
   ]

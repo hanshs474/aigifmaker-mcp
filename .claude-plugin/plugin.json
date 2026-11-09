@@ -1,6 +1,6 @@
 {
   "name": "aigifmaker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP server for AI GIF Maker (aigifmaker.ai): turn text into animated GIFs from Claude Code, on your own API key.",
   "author": { "name": "hanshs474", "url": "https://aigifmaker.ai/" },
   "homepage": "https://aigifmaker.ai/?utm_source=claude-plugin&utm_medium=package",

@@ -1,6 +1,6 @@
 {
   "name": "aigifmaker-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "mcpName": "io.github.hanshs474/aigifmaker-mcp",
   "description": "MCP server for AI GIF Maker (aigifmaker.ai): turn text into animated GIFs from any MCP client.",
   "keywords": [

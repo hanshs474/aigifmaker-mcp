@@ -78,7 +78,7 @@ export function unwrap(body: any): any {
 async function post(path: string, body: unknown = {}): Promise<any> {
   const headers: Record<string, string> = {
     'content-type': 'application/json',
-    'user-agent': 'aigifmaker-mcp/0.1.0',
+    'user-agent': 'aigifmaker-mcp/0.1.1',
   };
   const key = apiKey();
   if (key) headers.authorization = `Bearer ${key}`;
@@ -124,14 +124,21 @@ export async function credits(): Promise<number> {
 export async function waitFor(id: string, { timeoutMs = 5 * 60_000, intervalMs = 3_000 } = {}): Promise<string> {
   const deadline = Date.now() + timeoutMs;
   for (;;) {
-    const task = await getStatus(id);
+    let task: Task;
+    try {
+      task = await getStatus(id);
+    } catch (e) {
+      // A dropped poll is not a failed generation: keep waiting.
+      if (e instanceof AigifmakerError && e.kind === 'network') task = { status: 'processing' } as Task;
+      else throw e;
+    }
     if (task.status === 'success' && task.images?.length) return String(task.images[0]);
     if (task.status === 'failed' || task.status === 'canceled') {
       const msg = task.errorMessage || `The GIF ${task.status}.`;
       throw new AigifmakerError(msg, task.failureKind === 'moderation' ? 'rejected' : 'failed');
     }
     if (Date.now() + intervalMs > deadline) {
-      throw new AigifmakerError(`Task ${id} is still running; it may finish later in your AI GIF Maker history.`, 'timeout');
+      throw new AigifmakerError(`Task ${id} is still running (unpaid accounts wait in a short queue). Call check_gif with this id in a minute or two.`, 'timeout');
     }
     await new Promise((r) => setTimeout(r, intervalMs));
   }

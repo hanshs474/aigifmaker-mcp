@@ -9,6 +9,7 @@ This is the official MCP server for [AI GIF Maker](https://aigifmaker.ai/?utm_so
 | Tool | What it does |
 |---|---|
 | `generate_gif` | Text prompt in, animated GIF URL out. Waits for the GIF (usually about a minute) |
+| `check_gif` | Collects a GIF that was still queued when `generate_gif` returned (free to call) |
 | `check_credits` | Credits left on your account (free to call) |
 
 ## API key
@@ -60,7 +61,7 @@ docker build -t aigifmaker-mcp . && docker run -i --rm -e AIGIFMAKER_API_KEY=sk-
 
 ## Notes
 
-- A run from an account that has not bought credits yet may wait in a short queue before it starts; `generate_gif` keeps waiting (up to 5 minutes).
+- A run from an account that has not bought credits yet may wait in a short queue before it starts; `generate_gif` keeps waiting (up to 5 minutes); if it is still queued after that, it returns the task id and `check_gif` collects the GIF when it is ready.
 - Text to GIF only. There is no frame count, size, photo-to-GIF or editing option.
 - `AIGIFMAKER_BASE_URL` overrides the endpoint; only useful against a local build of the site.
 

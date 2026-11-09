@@ -6,7 +6,7 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 
-import { AigifmakerError, credentialsHint, credits, hasApiKey, submit, waitFor } from './client.js';
+import { AigifmakerError, credentialsHint, credits, getStatus, hasApiKey, submit, waitFor } from './client.js';
 
 const text = (body: string) => ({ content: [{ type: 'text' as const, text: body }] });
 const fail = (body: string) => ({ ...text(body), isError: true as const });
@@ -19,7 +19,7 @@ function explain(e: unknown): string {
 }
 
 export function createServer(): McpServer {
-  const server = new McpServer({ name: 'aigifmaker-mcp', version: '0.1.0' });
+  const server = new McpServer({ name: 'aigifmaker-mcp', version: '0.1.1' });
 
   server.registerTool(
     'generate_gif',
@@ -39,6 +39,31 @@ export function createServer(): McpServer {
         return text(`GIF ready:\n\n${url}`);
       } catch (e) {
         return fail(`GIF not made: ${explain(e)}`);
+      }
+    }
+  );
+
+  server.registerTool(
+    'check_gif',
+    {
+      title: 'Check a GIF that is still running',
+      description:
+        'Look up a GIF by the task id generate_gif returned when it was still running, and return its URL once it is ready. Free to call.',
+      inputSchema: {
+        task_id: z.string().min(1).describe('The task id from generate_gif.'),
+      },
+    },
+    async ({ task_id }) => {
+      if (!hasApiKey()) return fail(`No API key set. ${credentialsHint}`);
+      try {
+        const task = await getStatus(task_id);
+        if (task.status === 'success' && task.images?.length) return text(`GIF ready:\n\n${task.images[0]}`);
+        if (task.status === 'failed' || task.status === 'canceled') {
+          return fail(`GIF not made: ${task.errorMessage || `the GIF ${task.status}`}`);
+        }
+        return text(`Task ${task_id} is still running. Check again in a minute.`);
+      } catch (e) {
+        return fail(`Could not check the GIF: ${explain(e)}`);
       }
     }
   );

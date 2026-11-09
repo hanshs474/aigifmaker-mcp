@@ -1,4 +1,4 @@
-// The server lists exactly the two tools and answers without a key with a clear error.
+// The server lists exactly the three tools and answers without a key with a clear error.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
@@ -17,7 +17,7 @@ async function connect() {
 test('tools/list', async () => {
   const c = await connect();
   const { tools } = await c.listTools();
-  assert.deepEqual(tools.map((t) => t.name).sort(), ['check_credits', 'generate_gif']);
+  assert.deepEqual(tools.map((t) => t.name).sort(), ['check_credits', 'check_gif', 'generate_gif']);
 });
 
 test('generate_gif returns the GIF URL', async () => {
